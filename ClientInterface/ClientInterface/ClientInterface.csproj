@@ -190,6 +190,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -220,6 +221,7 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Models\Supplier.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
