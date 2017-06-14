@@ -53,7 +53,7 @@ namespace ClientInterface.Models
         public int RemoveFromCart(int id)
         {
             //Get the cart
-            var cartItem = storeDB.Carts.Single(cart => cart.CartID == ShoppingCartID && cart.ProductID == id);
+            var cartItem = storeDB.Carts.Single(cart => cart.CartID == ShoppingCartID && cart.RecordID == id);
             int itemCount = 0;
 
             if (cartItem != null)
@@ -61,7 +61,7 @@ namespace ClientInterface.Models
                 if (cartItem.Count > 1)
                 {
                     cartItem.Count--;
-                    itemCount = cartItem.Count;
+                    itemCount = (int)cartItem.Count;
                 }
                 else
                 {
@@ -123,13 +123,13 @@ namespace ClientInterface.Models
             {
                 var orderDetail = new OrderDetail
                 {
-                    ProductID = item.ProductID,
+                    ProductID = (int)item.ProductID,
                     OrderID = order.id,
                     Price = item.Product.Price,
                     Amount = item.Count
                 };
                 // Set the order total of the shopping cart
-                orderTotal += (item.Count * (int)item.Product.Price);
+                orderTotal += ((int)item.Count * (int)item.Product.Price);
 
                 storeDB.OrderDetails.Add(orderDetail);
             }

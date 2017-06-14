@@ -1,6 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="StoreModelStoreContainer" CdmEntityContainer="StoreEntities">
+    <EntitySetMapping Name="Carts">
+      <EntityTypeMapping TypeName="StoreModel.Cart">
+        <MappingFragment StoreEntitySet="Cart">
+          <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+          <ScalarProperty Name="CartID" ColumnName="CartID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="StoreModel.Category">
         <MappingFragment StoreEntitySet="Categories">

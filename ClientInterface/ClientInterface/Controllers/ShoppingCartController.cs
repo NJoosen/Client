@@ -49,7 +49,7 @@ namespace ClientInterface.Controllers
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
             // Get the name of the product to display confirmation
-            string productName = storeDB.Carts.Single(item => item.ProductID == id).Product.name;
+            string productName = storeDB.Carts.Single(item => item.RecordID == id).Product.name;
 
             // Remove from cart
             int itemCount = cart.RemoveFromCart(id);

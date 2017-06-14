@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="StoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="RecordID" />
+    </Key>
+    <Property Name="RecordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CartID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Cart_Products" FromRole="Cart" ToRole="Products" />
+  </EntityType>
   <EntityType Name="Category">
     <Key>
       <PropertyRef Name="id" />
@@ -53,6 +64,7 @@
     <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="CategoryID" Type="Int32" />
     <Property Name="SupplierID" Type="Int32" />
+    <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_Products" FromRole="Products" ToRole="Cart" />
     <NavigationProperty Name="Category" Relationship="Self.FK_Products_Categories" FromRole="Products" ToRole="Categories" />
     <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Products1" FromRole="Products" ToRole="OrderDetails" />
     <NavigationProperty Name="Supplier" Relationship="Self.FK_Products_Suppliers1" FromRole="Products" ToRole="Suppliers" />
@@ -68,6 +80,18 @@
     <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Products" Relationship="Self.FK_Products_Suppliers1" FromRole="Suppliers" ToRole="Products" />
   </EntityType>
+  <Association Name="FK_Cart_Products">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Products_Categories">
     <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
     <End Role="Products" Type="Self.Product" Multiplicity="*" />
@@ -133,12 +157,17 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="StoreEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Carts" EntityType="Self.Cart" />
     <EntitySet Name="Categories" EntityType="Self.Category" />
     <EntitySet Name="Customers" EntityType="Self.Customer" />
     <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
     <EntitySet Name="Orders" EntityType="Self.Order" />
     <EntitySet Name="Products" EntityType="Self.Product" />
     <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+    <AssociationSet Name="FK_Cart_Products" Association="Self.FK_Cart_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
     <AssociationSet Name="FK_Products_Categories" Association="Self.FK_Products_Categories">
       <End Role="Categories" EntitySet="Categories" />
       <End Role="Products" EntitySet="Products" />

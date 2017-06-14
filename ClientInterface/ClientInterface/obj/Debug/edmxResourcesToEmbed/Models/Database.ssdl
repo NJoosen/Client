@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="StoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="RecordID" />
+    </Key>
+    <Property Name="RecordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CartID" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="Count" Type="int" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+  </EntityType>
   <EntityType Name="Categories">
     <Key>
       <PropertyRef Name="id" />
@@ -58,6 +68,18 @@
     <Property Name="phonenumber" Type="int" />
     <Property Name="email" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <Association Name="FK_Cart_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_OrderDetails_Orders1">
     <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
     <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
@@ -123,12 +145,17 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="StoreModelStoreContainer">
+    <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Cart_Products" Association="Self.FK_Cart_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
     <AssociationSet Name="FK_OrderDetails_Orders1" Association="Self.FK_OrderDetails_Orders1">
       <End Role="Orders" EntitySet="Orders" />
       <End Role="OrderDetails" EntitySet="OrderDetails" />
