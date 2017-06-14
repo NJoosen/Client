@@ -74,3 +74,4 @@ C:\Users\N_Joo\Source\Repos\Client\ClientInterface\ClientInterface\bin\Microsoft
 C:\Users\N_Joo\Source\Repos\Client\ClientInterface\ClientInterface\bin\Microsoft.AI.Web.xml
 C:\Users\N_Joo\Source\Repos\Client\ClientInterface\ClientInterface\obj\Debug\ClientInterface.dll
 C:\Users\N_Joo\Source\Repos\Client\ClientInterface\ClientInterface\obj\Debug\ClientInterface.pdb
+C:\Users\N_Joo\Source\Repos\Client\ClientInterface\ClientInterface\obj\Debug\ClientInterface.csprojResolveAssemblyReference.cache
