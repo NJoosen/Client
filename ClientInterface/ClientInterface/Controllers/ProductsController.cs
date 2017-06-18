@@ -18,9 +18,8 @@ namespace ClientInterface.Controllers
         public ActionResult Index(string sortOrder, string searchString)
         {
             ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
+            ViewBag.PriceSortParm = string.IsNullOrEmpty(sortOrder) ? "price_desc" : "price_asc";
             var products = db.Products.Include(p => p.Category).Include(p => p.Supplier);
-            //var products = from s in db.Products select s;
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -31,8 +30,11 @@ namespace ClientInterface.Controllers
                 case "name_desc":
                     products = products.OrderByDescending(s => s.name);
                     break;
+                case "price_asc":
+                    products = products.OrderBy(s => s.Price);
+                    break;
                 case "price_desc":
-                    products.OrderByDescending(s => s.Price);
+                    products = products.OrderByDescending(s => s.Price);
                     break;
                 default:
                     products = products.OrderBy(s => s.name);

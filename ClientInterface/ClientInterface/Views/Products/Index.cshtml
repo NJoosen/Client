@@ -4,15 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Overview iStore Products</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 @using (Html.BeginForm())
 {
     <p>
-        Find by name: @Html.TextBox("SearchString")
+        Find by category: @Html.TextBox("SearchString")
         <input type="submit" value="Search" />
     </p>
 }
@@ -60,9 +60,9 @@
             @Html.DisplayFor(modelItem => item.Supplier.name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.id }) |
             @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Delete", "Delete", new { id=item.id }) |*@
             @Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new { id = item.id }, "")
         </td>
     </tr>
