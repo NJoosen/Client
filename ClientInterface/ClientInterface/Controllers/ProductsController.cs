@@ -18,7 +18,7 @@ namespace ClientInterface.Controllers
         public ActionResult Index(string sortOrder, string searchString)
         {
             ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.PriceSortParm = string.IsNullOrEmpty(sortOrder) ? "price_desc" : "price_asc";
+            ViewBag.PriceSortParm = sortOrder == "price_asc" ? "price_desc" : "price_asc";
             var products = db.Products.Include(p => p.Category).Include(p => p.Supplier);
 
             if (!String.IsNullOrEmpty(searchString))
